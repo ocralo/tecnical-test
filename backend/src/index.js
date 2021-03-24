@@ -4,12 +4,16 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 
+const cors = require("cors");
+
 const routes = require("./routes/index");
 
 const bodyParser = require("body-parser");
 
 app.use(express.static("public"));
 app.use(express.static("files"));
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
