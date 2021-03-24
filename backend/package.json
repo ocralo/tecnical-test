@@ -1,0 +1,27 @@
+{
+	"name": "backend-redvalley",
+	"version": "1.0.0",
+	"description": "test backend red valley",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ./src/index.js",
+		"dev": "nodemon ./src/index.js"
+	},
+	"author": "ocralo",
+	"license": "MIT",
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"body-parser": "^1.19.0",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-form-data": "^2.0.14",
+		"jsonwebtoken": "^8.5.1",
+		"mysql": "^2.18.1",
+		"socket.io": "^4.0.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7",
+		"prettier": "2.2.1"
+	}
+}
