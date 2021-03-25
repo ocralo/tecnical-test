@@ -6,17 +6,23 @@ const server = require("http").createServer(app);
 
 const cors = require("cors");
 
-const routes = require("./routes/index");
-
-const bodyParser = require("body-parser");
-
 app.use(express.static("public"));
 app.use(express.static("files"));
 
+//add cors in project
 app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// add socket.io
+const io = require("socket.io")(server, {
+	cors: {
+		origin: "*",
+		methods: ["GET", "POST"],
+	},
+});
+const ioFile = require("./socketIo/socketIo")(io);
 
 //routes
 require("./routes")(app);
