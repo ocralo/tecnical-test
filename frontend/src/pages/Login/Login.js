@@ -22,7 +22,7 @@ function Home() {
 		<Container fluid>
 			<Row className="justify-content-center mt-5">
 				<Col xs lg="6">
-					<Card body>
+					<Card body className="shadow">
 						<LoginForm submitSend={handleSubmit} />
 					</Card>
 				</Col>

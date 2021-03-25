@@ -17,7 +17,7 @@ function SignUp() {
 		<Container fluid>
 			<Row className="justify-content-center mt-5">
 				<Col xs lg="6">
-					<Card body>
+					<Card body className="shadow">
 						<CreateUserForm submitSend={handleSubmit} />
 					</Card>
 				</Col>

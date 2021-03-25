@@ -12,6 +12,7 @@ import { fetchCheckToken } from "./helper/requests/userRequest";
 //import pages
 import Login from "./pages/Login/Login";
 import SingUp from "./pages/SignUp/Signup";
+import Chat from "./pages/Chat/Chat";
 
 //import components
 import Navbar from "./components/NavberMenu/NavberMenu";
@@ -39,6 +40,9 @@ const RouterPages = () => {
 							</Route>
 							<Route exact path="/singup">
 								<SingUp />
+							</Route>
+							<Route exact path="/chat">
+								<Chat />
 							</Route>
 						</Switch>
 					</div>
