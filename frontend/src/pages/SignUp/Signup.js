@@ -26,17 +26,4 @@ function SignUp() {
 	);
 }
 
-/* export const getServerSideProps = withAuthUserSSR()(async (ctx) => {
-	const { AuthUser } = ctx;
-
-	if (AuthUser || AuthUser.id) {
-		return {
-			redirect: {
-				destination: "/demo",
-				permanent: true,
-			},
-		};
-	}
-}); */
-
 export default SignUp;
