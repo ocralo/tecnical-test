@@ -16,6 +16,13 @@ router.get("/about", protectedRoutes, (req, res) => {
 	res.send("About this wiki");
 });
 
+// About page route.
+router.get("/check", protectedRoutes, (req, res) => {
+	const { nickName } = req.decoded;
+	console.log(req.decoded);
+	res.json({ auth: true, nickName });
+});
+
 // EndPoint create user
 router.post("/create", (req, res) => {
 	const { name, lastName, email, password, nickName } = req.body;
@@ -89,6 +96,7 @@ router.post("/login", (req, res) => {
 							message: "Autenticación correcta",
 							auth: true,
 							error: false,
+							nickName,
 							token: token,
 						});
 					} else {
