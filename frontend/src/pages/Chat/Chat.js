@@ -32,6 +32,9 @@ function Chat(props) {
 				);
 			}
 		});
+		return () => {
+			socket.disconnect();
+		};
 	}, []);
 
 	const handleDelete = (id) => {
@@ -58,7 +61,7 @@ function Chat(props) {
 					</div>
 				</Col>
 				<Col xs="12" md="6">
-					<ChatForm id={roomSelected} />
+					{!!roomSelected && <ChatForm id={roomSelected} />}
 				</Col>
 			</Row>
 		</Container>

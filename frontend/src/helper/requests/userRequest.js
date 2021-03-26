@@ -48,9 +48,11 @@ export const fetchCheckToken = () => {
 				},
 			})
 			.then((result) => {
-				const { auth, nickName, error } = result.data;
-				if (!!error) {
-					dispatch(fetchCheckTokenUser({ nickName }, auth));
+				const { auth, nickName, id_user, error } = result.data;
+				if (!!!error) {
+					dispatch(
+						fetchCheckTokenUser({ nickName, id: id_user }, auth)
+					);
 				} else {
 					dispatch(fetchCheckTokenUserError(error));
 				}

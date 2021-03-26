@@ -4,6 +4,8 @@ import {
 	SOCKET_GET_ROOMS,
 	SOCKET_CREATE_ROOM,
 	SOCKET_DELETE_ROOM,
+	GET_MESSAGE_ROOM,
+	SEND_MESSAGE_ROOM,
 } from "../types/chatTypes";
 
 export function selectRoom(roomSelected) {
@@ -11,6 +13,22 @@ export function selectRoom(roomSelected) {
 	return {
 		type: SELECT_ROOM,
 		roomSelected,
+	};
+}
+
+export function getMessageRoom(messages) {
+	console.log(messages);
+	return {
+		type: GET_MESSAGE_ROOM,
+		messages,
+	};
+}
+
+export function sendMessageRoom(messages) {
+	console.log(messages);
+	return {
+		type: SEND_MESSAGE_ROOM,
+		messages,
 	};
 }
 

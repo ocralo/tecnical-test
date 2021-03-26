@@ -5,6 +5,8 @@ import socket from "./../../helper/socketIo/socketIo";
 import {
 	selectRoom,
 	socketGetRoom,
+	sendMessageRoom,
+	getMessageRoom,
 	socketDeleteRoom,
 	socketCreateRoom,
 } from "../../redux/chat/actions/chatAction";
@@ -25,6 +27,45 @@ export const socketGetRooms = () => {
 				console.log(data);
 			}
 		});
+	};
+};
+
+export const socketGetMessage = (id) => {
+	return (dispatch) => {
+		console.log({ id });
+		socket.emit("Message:get-all", id, ({ data, error }) => {
+			if (error) {
+			} else {
+				dispatch(getMessageRoom(data, false));
+				console.log(data);
+			}
+		});
+	};
+};
+
+export const socketGetMessageOn = (data) => {
+	return (dispatch) => {
+		dispatch(getMessageRoom(data, false));
+	};
+};
+
+export const socketSendMessage = (msgUser) => {
+	return (dispatch) => {
+		const { nameRoom, idUser, msg } = msgUser;
+		console.log({ msgUser });
+
+		socket.emit(
+			"Message:create",
+			{ nameRoom, idUser, msg },
+			({ data, error }) => {
+				console.log(data);
+				if (!!error) {
+				} else {
+					dispatch(sendMessageRoom(data, false));
+					console.log(data);
+				}
+			}
+		);
 	};
 };
 

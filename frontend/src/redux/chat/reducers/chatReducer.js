@@ -3,6 +3,8 @@ import {
 	SOCKET_GET_ROOMS,
 	SOCKET_CREATE_ROOM,
 	SOCKET_DELETE_ROOM,
+	GET_MESSAGE_ROOM,
+	SEND_MESSAGE_ROOM,
 } from "../types/chatTypes";
 
 const initialState = {
@@ -10,6 +12,8 @@ const initialState = {
 	rooms: [],
 	errorRooms: false,
 	roomSelected: null,
+	messages: [],
+	roomName: null,
 };
 
 /**
@@ -18,12 +22,22 @@ const initialState = {
  * @param {*} action
  */
 export default function userReducer(state = initialState, action) {
-	const { type, rooms, error, roomSelected } = action;
+	const { type, rooms, error, roomSelected, messages } = action;
 	switch (type) {
 		case SELECT_ROOM:
 			return {
 				...state,
 				roomSelected,
+			};
+		case GET_MESSAGE_ROOM:
+			return {
+				...state,
+				messages,
+			};
+		case SEND_MESSAGE_ROOM:
+			return {
+				...state,
+				messages,
 			};
 		case SOCKET_GET_ROOMS:
 			return {
