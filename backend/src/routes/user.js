@@ -18,9 +18,9 @@ router.get("/about", protectedRoutes, (req, res) => {
 
 // About page route.
 router.get("/check", protectedRoutes, (req, res) => {
-	const { nickName } = req.decoded;
-	console.log(req.decoded);
-	res.json({ auth: true, nickName });
+	const { nickName, id_user } = req.decoded;
+	console.log("decode", req.decoded);
+	res.json({ auth: true, nickName, id_user });
 });
 
 // EndPoint create user
@@ -45,7 +45,7 @@ router.post("/create", (req, res) => {
 		.then((passwordBcrypt) => {
 			queryDb(
 				`INSERT INTO Users ( email, name, lastName, password, nickname) VALUES ( ?, ?, ?, ?, ?)`,
-				[name, lastName, email, passwordBcrypt, nickName]
+				[email, name, lastName, , passwordBcrypt, nickName]
 			)
 				.then((result) => {
 					console.log(result);
@@ -75,9 +75,10 @@ router.post("/login", (req, res) => {
 		return;
 	}
 
-	queryDb(`SELECT nickname,password FROM Users WHERE nickName = ?`, [
-		nickName,
-	])
+	queryDb(
+		`SELECT nickname,password,id_user FROM Users WHERE nickName = ?`,
+		[nickName]
+	)
 		.then((resultDb) => {
 			console.log(resultDb[0]);
 			//////////////
@@ -88,6 +89,7 @@ router.post("/login", (req, res) => {
 					if (resBcrypt == true) {
 						const payload = {
 							nickName,
+							id_user: resultDb[0].id_user,
 						};
 						const token = jwt.sign(payload, configJwt.key, {
 							expiresIn: 1440,
@@ -96,7 +98,7 @@ router.post("/login", (req, res) => {
 							message: "Autenticación correcta",
 							auth: true,
 							error: false,
-							nickName,
+							nickName: { nickName, id_user: resultDb[0].id_user },
 							token: token,
 						});
 					} else {
