@@ -11,10 +11,10 @@ import {
 	socketCreateRoom,
 } from "../../redux/chat/actions/chatAction";
 
-export const selectRoomChat = (roomSelected) => {
+export const selectRoomChat = (roomSelected, roomBeforeSelected) => {
 	console.log(roomSelected);
 	return (dispatch) => {
-		dispatch(selectRoom(roomSelected));
+		dispatch(selectRoom(roomSelected, roomBeforeSelected));
 	};
 };
 
@@ -30,16 +30,20 @@ export const socketGetRooms = () => {
 	};
 };
 
-export const socketGetMessage = (id) => {
+export const socketGetMessage = (id, roomBeforeSelected) => {
 	return (dispatch) => {
-		console.log({ id });
-		socket.emit("Message:get-all", id, ({ data, error }) => {
-			if (error) {
-			} else {
-				dispatch(getMessageRoom(data, false));
-				console.log(data);
+		console.log({ id, roomBeforeSelected });
+		socket.emit(
+			"Message:get-all",
+			{ id, roomBeforeSelected },
+			({ data, error }) => {
+				if (error) {
+				} else {
+					dispatch(getMessageRoom(data, false));
+					console.log(data);
+				}
 			}
-		});
+		);
 	};
 };
 
@@ -99,21 +103,22 @@ export const socketDeleteRooms = (room) => {
 	console.log(room);
 	return (dispatch) => {
 		console.log(room);
-		socket.emit(
-			"rooms:delete",
-			{
-				room,
-			},
-			(data) => {
-				console.log("error s", data);
+		if (window.confirm("¿Desea eliminar la room?"))
+			socket.emit(
+				"rooms:delete",
+				{
+					room,
+				},
+				(data) => {
+					console.log("error s", data);
 
-				if (!!!data) {
-				} else {
-					console.log("entre");
-					alert("se ha eliminado la room con exito");
-					dispatch(socketDeleteRoom(data));
+					if (!!!data) {
+					} else {
+						console.log("entre");
+						alert("se ha eliminado la room con exito");
+						dispatch(socketDeleteRoom(data));
+					}
 				}
-			}
-		);
+			);
 	};
 };

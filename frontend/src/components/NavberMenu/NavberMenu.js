@@ -1,27 +1,40 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 //Redux
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function NavberMenu() {
-	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.userReducer);
 
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-			<Navbar.Brand href="#home">
-				<img
-					src={`${process.env.PUBLIC_URL}/static/RedValley.png`}
-					width="100"
-					height="25"
-					alt="Red Valley"
-				/>
+			<Navbar.Brand>
+				<Link to="/">
+					<img
+						src={`${process.env.PUBLIC_URL}/static/RedValley.png`}
+						width="100"
+						height="25"
+						alt="Red Valley"
+					/>
+				</Link>
 			</Navbar.Brand>
-			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			{!user && (
+				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			)}
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto">
-					<Button></Button>
-					<Nav.Link href="#deets">More deets</Nav.Link>
+					{/* user && (
+						<Link className="btn btn-outline-secondary" to="/chat">
+							Chat
+						</Link>
+					) */}
+					{!!!user && (
+						<Link className="btn btn-outline-secondary" to="/singup">
+							Crear Cuenta
+						</Link>
+					)}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>

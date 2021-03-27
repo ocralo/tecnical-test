@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Container, Row, Col } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 //import Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +19,12 @@ import ChatForm from "./../../components/ChatForm/ChatForm";
 import socket from "./../../helper/socketIo/socketIo";
 
 function Chat(props) {
+	let history = useHistory();
 	const dispatch = useDispatch();
 	const { rooms, roomSelected } = useSelector(
 		(state) => state.chatReducer
 	);
+	const { errorToken } = useSelector((state) => state.userReducer);
 
 	useEffect(() => {
 		dispatch(socketGetRooms());
@@ -33,15 +36,22 @@ function Chat(props) {
 			}
 		});
 		return () => {
-			socket.disconnect();
+			//socket.disconnect();
 		};
 	}, []);
+
+	/* useEffect(() => {
+		if (!!errorToken) {
+			history.push("/");
+		}
+	}, [errorToken]); */
 
 	const handleDelete = (id) => {
 		dispatch(socketDeleteRooms(id));
 	};
+
 	const handleSelected = (id) => {
-		dispatch(selectRoomChat(id));
+		dispatch(selectRoomChat(id, roomSelected));
 	};
 
 	return (
@@ -49,7 +59,7 @@ function Chat(props) {
 			<Row className="mt-5">
 				<Col xs="12" md="6">
 					<div className=" d-sm-flex justify-content-between align-items-center mb-4">
-						<h5>Rooms</h5>
+						<h5>Salas</h5>
 						<ModalRoom />
 					</div>
 					<div className="ml-2">

@@ -21,11 +21,14 @@ import PrivateRoute from "./components/PrivateRoute/index";
 
 const RouterPages = () => {
 	const dispatch = useDispatch();
-	const { pending } = useSelector((state) => state.userReducer);
+	const { pending, errorToken } = useSelector(
+		(state) => state.userReducer
+	);
 
 	useEffect(() => {
 		dispatch(fetchCheckToken());
 	}, []);
+
 	console.log(pending);
 
 	return (
@@ -41,9 +44,10 @@ const RouterPages = () => {
 							<Route exact path="/singup">
 								<SingUp />
 							</Route>
-							<Route exact path="/chat">
+							<PrivateRoute component={Chat} />
+							{/* <Route exact path="/chat">
 								<Chat />
-							</Route>
+							</Route> */}
 						</Switch>
 					</div>
 				</Router>

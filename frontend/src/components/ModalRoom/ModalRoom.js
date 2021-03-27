@@ -27,12 +27,12 @@ function ModalRoom(props) {
 				className="my-2 rounded-pill"
 				variant="primary"
 				onClick={handleShow}>
-				+ Create Room
+				+ Crear Sala
 			</Button>
 
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
-					<Modal.Title>Crear Room</Modal.Title>
+					<Modal.Title>Crear Sala</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<RoomForm submitSend={handleSubmit} />

@@ -8,11 +8,12 @@ import {
 	SEND_MESSAGE_ROOM,
 } from "../types/chatTypes";
 
-export function selectRoom(roomSelected) {
+export function selectRoom(roomSelected, roomBeforeSelected) {
 	console.log(roomSelected);
 	return {
 		type: SELECT_ROOM,
 		roomSelected,
+		roomBeforeSelected,
 	};
 }
 

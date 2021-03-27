@@ -21,7 +21,7 @@ export function fetchSignInPending() {
 }
 
 export function fetchSignInSuccess(user, auth) {
-	console.log(auth);
+	console.log({ user });
 	return {
 		type: FETCH_SING_IN_SUCCESS,
 		user,

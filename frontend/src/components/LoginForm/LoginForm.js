@@ -7,7 +7,8 @@ function LoginForm({ submitSend }) {
 
 	const handleInputChange = (event) => {
 		const target = event.target;
-		const value = target.type === "checkbox" ? target.checked : target.value;
+		const value =
+			target.type === "checkbox" ? target.checked : target.value;
 		const name = target.name;
 
 		setUser({ ...user, [name]: value });
@@ -29,7 +30,7 @@ function LoginForm({ submitSend }) {
 					required
 					type="type"
 					name="nickName"
-					placeholder="nickName"
+					placeholder="Usuario"
 					value={user?.nickName || ""}
 					onChange={handleInputChange}
 				/>

@@ -12,6 +12,7 @@ const initialState = {
 	rooms: [],
 	errorRooms: false,
 	roomSelected: null,
+	roomBeforeSelected: null,
 	messages: [],
 	roomName: null,
 };
@@ -22,12 +23,20 @@ const initialState = {
  * @param {*} action
  */
 export default function userReducer(state = initialState, action) {
-	const { type, rooms, error, roomSelected, messages } = action;
+	const {
+		type,
+		rooms,
+		error,
+		roomSelected,
+		roomBeforeSelected,
+		messages,
+	} = action;
 	switch (type) {
 		case SELECT_ROOM:
 			return {
 				...state,
 				roomSelected,
+				roomBeforeSelected,
 			};
 		case GET_MESSAGE_ROOM:
 			return {

@@ -8,7 +8,7 @@ import { date } from "./../../helper/date/date";
 
 function ListChat({ rooms, handleDelete, handleSelected }) {
 	return (
-		<ListGroup>
+		<ListGroup className="overflow-auto" style={{ height: 315 }}>
 			{Array.isArray(rooms) &&
 				rooms.map(({ id_room, name_room, create_date_room }) => (
 					<ListGroup.Item
