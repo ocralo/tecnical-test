@@ -89,7 +89,7 @@ router.post("/login", (req, res) => {
 					if (resBcrypt == true) {
 						const payload = {
 							nickName,
-							id_user: resultDb[0].id_user,
+							id: resultDb[0].id_user,
 						};
 						console.log({ nickName, id_user: resultDb[0].id_user });
 						const token = jwt.sign(payload, configJwt.key, {
