@@ -12,6 +12,9 @@ import FloatMessage, {
 	FloatMessageFrom,
 } from "./../FloatMessage/FloatMessage";
 
+import ToolTipComponent from "./../ToolTipComponent/ToolTipComponent";
+import GiphyGridMessage from "../GiphyMessage/GiphyMessage";
+
 import socket from "./../../helper/socketIo/socketIo";
 
 //Redux
@@ -46,6 +49,32 @@ function ChatForm({ id }) {
 		dispatch(socketGetMessage(id, roomBeforeSelected));
 		refScroll.current.scrollTop = refScroll.current.scrollHeight;
 	}, [id]);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (messageSend !== "") {
+			dispatch(
+				socketSendMessage({
+					msg: messageSend,
+					idUser,
+					nameRoom: id,
+				})
+			);
+			setMessageSend("");
+		}
+	};
+
+	const handleSubmitGiff = (dataString) => {
+		if (dataString !== "") {
+			dispatch(
+				socketSendMessage({
+					msg: dataString,
+					idUser,
+					nameRoom: id,
+				})
+			);
+		}
+	};
 
 	return (
 		<Card className="text-center">
@@ -82,20 +111,7 @@ function ChatForm({ id }) {
 					)}
 			</Card.Body>
 			<Card.Footer className="text-muted p-0 border-top-0">
-				<Form
-					onSubmit={(e) => {
-						e.preventDefault();
-						if (messageSend !== "") {
-							dispatch(
-								socketSendMessage({
-									msg: messageSend,
-									idUser,
-									nameRoom: id,
-								})
-							);
-							setMessageSend("");
-						}
-					}}>
+				<Form onSubmit={handleSubmit}>
 					<InputGroup>
 						<FormControl
 							placeholder="..."
@@ -112,6 +128,9 @@ function ChatForm({ id }) {
 						</InputGroup.Append>
 					</InputGroup>
 				</Form>
+				<ToolTipComponent>
+					<GiphyGridMessage handleSelectedGiff={handleSubmitGiff} />
+				</ToolTipComponent>
 			</Card.Footer>
 		</Card>
 	);

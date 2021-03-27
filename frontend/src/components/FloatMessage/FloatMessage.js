@@ -3,11 +3,17 @@ import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import { dateHour } from "./../../helper/date/date";
 
-const replaceURLWithHTMLLinks = (text) => {
+/* const replaceURLWithHTMLLinks = (text) => {
 	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 	return text.replace(exp, "<a href='$1'>$1</a>");
+}; */
+
+const replaceGifWithHTMLImg = (text) => {
+	var exp = /\/([gif]+\s)([\s\S\n]*)/g;
+	return text.replace(exp, `<img src="$2" width="90" height="90" />`);
 };
-function FloatMessage({ message, nickname, date }) {
+
+function FloatMessage({ message, date }) {
 	return (
 		<Card
 			style={{ width: "80%" }}
@@ -16,7 +22,7 @@ function FloatMessage({ message, nickname, date }) {
 				<p
 					className="m-0 "
 					dangerouslySetInnerHTML={{
-						__html: replaceURLWithHTMLLinks(message),
+						__html: replaceGifWithHTMLImg(message),
 					}}></p>
 				<p className="m-0 text-right" style={{ fontSize: 10 }}>
 					{dateHour(new Date(date))}
@@ -43,7 +49,7 @@ export function FloatMessageFrom({ message, nickname, date }) {
 				<p
 					className="m-0"
 					dangerouslySetInnerHTML={{
-						__html: replaceURLWithHTMLLinks(message),
+						__html: replaceGifWithHTMLImg(message),
 					}}></p>
 				<p
 					className="m-0 text-white text-right"
