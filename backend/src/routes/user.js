@@ -45,7 +45,7 @@ router.post("/create", (req, res) => {
 		.then((passwordBcrypt) => {
 			queryDb(
 				`INSERT INTO Users ( email, name, lastName, password, nickname) VALUES ( ?, ?, ?, ?, ?)`,
-				[email, name, lastName, , passwordBcrypt, nickName]
+				[email, name, lastName, passwordBcrypt, nickName]
 			)
 				.then((result) => {
 					console.log(result);
@@ -76,7 +76,7 @@ router.post("/login", (req, res) => {
 	}
 
 	queryDb(
-		`SELECT nickname,password,id_user FROM Users WHERE nickName = ?`,
+		`SELECT nickname, password, id_user FROM Users WHERE nickName = ?`,
 		[nickName]
 	)
 		.then((resultDb) => {
@@ -91,6 +91,7 @@ router.post("/login", (req, res) => {
 							nickName,
 							id_user: resultDb[0].id_user,
 						};
+						console.log({ nickName, id_user: resultDb[0].id_user });
 						const token = jwt.sign(payload, configJwt.key, {
 							expiresIn: 1440,
 						});

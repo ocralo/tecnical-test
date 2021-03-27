@@ -20,6 +20,7 @@ const selectMsg = (request, roomId) =>
 			request({ data: result, error: false });
 		})
 		.catch((err) => {
+			console.log(err);
 			request({
 				error: true,
 			});
@@ -38,15 +39,19 @@ exports = module.exports = (io) => {
 			selectRooms(request);
 		});
 
-		socket.on("Message:get-all", (roomId, request) => {
-			console.log("join", roomId);
-			socket.join(roomId);
-			selectMsg(request, roomId);
-		});
+		socket.on(
+			"Message:get-all",
+			({ id, roomBeforeSelected }, request) => {
+				console.log("join", id, roomBeforeSelected);
+				if (roomBeforeSelected || roomBeforeSelected != id)
+					socket.leave(roomBeforeSelected);
+				socket.join(id);
+				selectMsg(request, id);
+			}
+		);
 
 		socket.on("Message:create", (data, request) => {
 			const { nameRoom, idUser, msg } = data;
-			console.log(data);
 			const dateMsg = new Date()
 				.toISOString()
 				.slice(0, 19)
@@ -58,13 +63,12 @@ exports = module.exports = (io) => {
 			)
 				.then((result) => {
 					const send = (data) => {
-						console.log({ nameRoom, data });
 						io.to(nameRoom).emit("Message:create", data);
 					};
-					console.log({ gg: nameRoom });
 					selectMsg(send, nameRoom);
 				})
 				.catch((err) => {
+					console.log(err);
 					request({
 						error: true,
 					});
