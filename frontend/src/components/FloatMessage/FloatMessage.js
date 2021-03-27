@@ -2,16 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import { dateHour } from "./../../helper/date/date";
-import { propTypes } from "react-bootstrap/esm/Image";
-
-const urlify = (text) => {
-	var urlRegex = /(https?:\/\/[^\s]+)/g;
-	return text.replace(urlRegex, function (url) {
-		return `<a href="${url}" target="_blank"> ${url} </a> `;
-	});
-	// or alternatively
-	// return text.replace(urlRegex, '<a href="$1">$1</a>')
-};
 
 const replaceURLWithHTMLLinks = (text) => {
 	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;

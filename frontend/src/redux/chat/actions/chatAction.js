@@ -9,7 +9,6 @@ import {
 } from "../types/chatTypes";
 
 export function selectRoom(roomSelected, roomBeforeSelected) {
-	console.log(roomSelected);
 	return {
 		type: SELECT_ROOM,
 		roomSelected,
@@ -18,7 +17,6 @@ export function selectRoom(roomSelected, roomBeforeSelected) {
 }
 
 export function getMessageRoom(messages) {
-	console.log(messages);
 	return {
 		type: GET_MESSAGE_ROOM,
 		messages,
@@ -26,7 +24,6 @@ export function getMessageRoom(messages) {
 }
 
 export function sendMessageRoom(messages) {
-	console.log(messages);
 	return {
 		type: SEND_MESSAGE_ROOM,
 		messages,

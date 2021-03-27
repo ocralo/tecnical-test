@@ -9,9 +9,6 @@ import {
 	FETCH_SING_UP_PENDING,
 	FETCH_SING_UP_SUCCESS,
 	FETCH_SING_UP_ERROR,
-	FETCH_SING_OUT_PENDING,
-	FETCH_SING_OUT_SUCCESS,
-	FETCH_SING_OUT_ERROR,
 } from "../types/usersTypes";
 
 export function fetchSignInPending() {
@@ -21,7 +18,6 @@ export function fetchSignInPending() {
 }
 
 export function fetchSignInSuccess(user, auth) {
-	console.log({ user });
 	return {
 		type: FETCH_SING_IN_SUCCESS,
 		user,
@@ -43,7 +39,6 @@ export function fetchSignUpPending() {
 }
 
 export function fetchSignUpSuccess(user, auth) {
-	console.log(auth);
 	return {
 		type: FETCH_SING_UP_SUCCESS,
 	};

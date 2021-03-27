@@ -22,7 +22,6 @@ function Home() {
 	}, [user]);
 
 	const handleSubmit = (data) => {
-		console.log("datalog", data);
 		dispatch(fetchSign(data));
 	};
 	return (

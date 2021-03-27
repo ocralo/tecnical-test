@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import { Container, Row, Col } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 
 //import Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,13 +16,12 @@ import ChatForm from "./../../components/ChatForm/ChatForm";
 
 import socket from "./../../helper/socketIo/socketIo";
 
-function Chat(props) {
-	let history = useHistory();
+function Chat() {
 	const dispatch = useDispatch();
 	const { rooms, roomSelected } = useSelector(
 		(state) => state.chatReducer
 	);
-	const { errorToken } = useSelector((state) => state.userReducer);
+	//const { errorToken } = useSelector((state) => state.userReducer);
 
 	useEffect(() => {
 		dispatch(socketGetRooms());
@@ -39,12 +36,6 @@ function Chat(props) {
 			//socket.disconnect();
 		};
 	}, []);
-
-	/* useEffect(() => {
-		if (!!errorToken) {
-			history.push("/");
-		}
-	}, [errorToken]); */
 
 	const handleDelete = (id) => {
 		dispatch(socketDeleteRooms(id));

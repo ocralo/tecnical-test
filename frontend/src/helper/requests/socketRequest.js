@@ -12,7 +12,6 @@ import {
 } from "../../redux/chat/actions/chatAction";
 
 export const selectRoomChat = (roomSelected, roomBeforeSelected) => {
-	console.log(roomSelected);
 	return (dispatch) => {
 		dispatch(selectRoom(roomSelected, roomBeforeSelected));
 	};
@@ -24,7 +23,6 @@ export const socketGetRooms = () => {
 			if (error) {
 			} else {
 				dispatch(socketGetRoom(data, false));
-				console.log(data);
 			}
 		});
 	};
@@ -32,7 +30,6 @@ export const socketGetRooms = () => {
 
 export const socketGetMessage = (id, roomBeforeSelected) => {
 	return (dispatch) => {
-		console.log({ id, roomBeforeSelected });
 		socket.emit(
 			"Message:get-all",
 			{ id, roomBeforeSelected },
@@ -40,7 +37,6 @@ export const socketGetMessage = (id, roomBeforeSelected) => {
 				if (error) {
 				} else {
 					dispatch(getMessageRoom(data, false));
-					console.log(data);
 				}
 			}
 		);
@@ -56,17 +52,14 @@ export const socketGetMessageOn = (data) => {
 export const socketSendMessage = (msgUser) => {
 	return (dispatch) => {
 		const { nameRoom, idUser, msg } = msgUser;
-		console.log({ msgUser });
 
 		socket.emit(
 			"Message:create",
 			{ nameRoom, idUser, msg },
 			({ data, error }) => {
-				console.log(data);
 				if (!!error) {
 				} else {
 					dispatch(sendMessageRoom(data, false));
-					console.log(data);
 				}
 			}
 		);
@@ -92,7 +85,6 @@ export const socketCreateRooms = (room) => {
 				} else {
 					dispatch(socketCreateRoom(false));
 					alert("se ha creado la room con exito");
-					console.log(data);
 				}
 			}
 		);
@@ -100,9 +92,7 @@ export const socketCreateRooms = (room) => {
 };
 
 export const socketDeleteRooms = (room) => {
-	console.log(room);
 	return (dispatch) => {
-		console.log(room);
 		if (window.confirm("¿Desea eliminar la room?"))
 			socket.emit(
 				"rooms:delete",
@@ -110,11 +100,8 @@ export const socketDeleteRooms = (room) => {
 					room,
 				},
 				(data) => {
-					console.log("error s", data);
-
 					if (!!!data) {
 					} else {
-						console.log("entre");
 						alert("se ha eliminado la room con exito");
 						dispatch(socketDeleteRoom(data));
 					}

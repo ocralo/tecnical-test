@@ -35,7 +35,6 @@ function ChatForm({ id }) {
 
 	useEffect(() => {
 		socket.on("Message:create", (msgSocket) => {
-			console.log("gg", { msgSocket });
 			if (!!msgSocket) {
 				dispatch(socketGetMessageOn(msgSocket.data));
 				refScroll.current.scrollTop = refScroll.current.scrollHeight;
@@ -86,7 +85,6 @@ function ChatForm({ id }) {
 				<Form
 					onSubmit={(e) => {
 						e.preventDefault();
-						console.log("entre");
 						if (messageSend !== "") {
 							dispatch(
 								socketSendMessage({
