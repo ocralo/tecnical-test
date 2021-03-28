@@ -1,12 +1,13 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Navbar, Nav, Button } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 
 //Redux
 import { useSelector } from "react-redux";
 
 function NavberMenu() {
 	const { user } = useSelector((state) => state.userReducer);
+	const history = useHistory();
 
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -20,9 +21,9 @@ function NavberMenu() {
 					/>
 				</Link>
 			</Navbar.Brand>
-			{!user && (
-				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-			)}
+
+			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="ml-auto">
 					{/* user && (
@@ -30,6 +31,14 @@ function NavberMenu() {
 							Chat
 						</Link>
 					) */}
+					<Button
+						onClick={() => {
+							console.log("logout");
+							localStorage.removeItem("token");
+							history.push("/");
+						}}>
+						Cerrar Sesion
+					</Button>
 					{!!!user && (
 						<Link className="btn btn-outline-secondary" to="/singup">
 							Crear Cuenta

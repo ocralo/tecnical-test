@@ -47,7 +47,7 @@ function Chat() {
 
 	return (
 		<Container>
-			<Row className="mt-5">
+			<Row className="mt-5 border p-3">
 				<Col xs="12" md="6">
 					<div className=" d-sm-flex justify-content-between align-items-center mb-4">
 						<h5>Salas</h5>

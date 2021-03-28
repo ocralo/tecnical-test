@@ -22,10 +22,15 @@ export const fetchSign = (dataUser) => {
 				password: dataUser.password,
 			})
 			.then((result) => {
-				const { auth, nickName, token, error } = result.data;
+				const {
+					auth,
+					nickName: { nickName, id_user: id },
+					token,
+					error,
+				} = result.data;
 				if (!!!error) {
 					localStorage.setItem("token", token);
-					dispatch(fetchSignInSuccess({ nickName, token }, auth));
+					dispatch(fetchSignInSuccess({ nickName, id, token }, auth));
 				} else {
 					dispatch(fetchSignInError(error));
 				}
@@ -49,6 +54,7 @@ export const fetchCheckToken = () => {
 			})
 			.then((result) => {
 				const { auth, nickName, id_user, error } = result.data;
+				console.log(result.data);
 				if (!!!error) {
 					if (!!nickName) {
 						dispatch(

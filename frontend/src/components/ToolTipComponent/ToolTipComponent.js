@@ -12,7 +12,9 @@ function ToolTipComponent({ children }) {
 	};
 	return (
 		<div ref={ref}>
-			<Button onClick={handleClick}>Enviar Gif</Button>
+			<Button className="my-2" onClick={handleClick}>
+				Enviar Gif
+			</Button>
 
 			<Overlay
 				show={show}
