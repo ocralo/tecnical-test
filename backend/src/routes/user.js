@@ -18,9 +18,9 @@ router.get("/about", protectedRoutes, (req, res) => {
 
 // About page route.
 router.get("/check", protectedRoutes, (req, res) => {
-	const { nickName, id_user } = req.decoded;
+	const { nickName, id } = req.decoded;
 	console.log("decode", req.decoded);
-	res.json({ auth: true, nickName, id_user });
+	res.json({ auth: true, nickName, id_user: id });
 });
 
 // EndPoint create user
